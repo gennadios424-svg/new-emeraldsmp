@@ -1,0 +1,14 @@
+# EmeraldSMP /worth
+# Prices are dollars per item unless otherwise stated.
+# Explicit values override the automatic rarity calculator.
+prices:
+  KELP: 200
+  SEA_PICKLE: 150
+  PINK_PETALS: 125
+  CHEST: 50
+  TRAPPED_CHEST: 250
+  CHEST_MINECART: 500
+  DRAGON_EGG: 2500000
+  SHULKER_BOX: 200
+  DIAMOND_HOE: 250
+  NETHERITE_BLOCK: 250000
