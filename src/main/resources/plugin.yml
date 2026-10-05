@@ -1,0 +1,16 @@
+name: EmeraldSMP
+version: 1.0.0
+main: net.emeraldsmp.EmeraldSMP
+description: EmeraldSMP core plugin
+author: Genzo
+api-version: '1.21.11'
+commands:
+  worth:
+    description: Opens the EmeraldSMP item worth menu
+    usage: /worth
+    aliases: [values]
+    permission: emeraldsmp.worth
+permissions:
+  emeraldsmp.worth:
+    description: Allows players to use /worth
+    default: true
