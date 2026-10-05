@@ -88,6 +88,10 @@ public final class WorthService {
         if (Set.of("WITHER_SKELETON_SKULL","NETHER_STAR","TOTEM_OF_UNDYING",
                    "HEART_OF_THE_SEA","NAUTILUS_SHELL","TRIDENT",
                    "ENCHANTED_GOLDEN_APPLE","ECHO_SHARD").contains(n)) value = Math.max(value, 15000);
+        if (n.equals("CHEST")) value = 50;
+        if (n.equals("TRAPPED_CHEST")) value = 250;
+        if (n.endsWith("_CHEST_BOAT")) value = 250;
+        if (n.equals("CHEST_MINECART")) value = 500;
         if (n.equals("BARREL")) value = 75;
         if (n.equals("ENDER_CHEST")) value = 1000;
         return value;
