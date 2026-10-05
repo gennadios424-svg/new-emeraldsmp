@@ -16,9 +16,11 @@ public final class WorthService {
         Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK,
         Material.STRUCTURE_BLOCK, Material.STRUCTURE_VOID, Material.JIGSAW,
         Material.DEBUG_STICK, Material.KNOWLEDGE_BOOK,
-        Material.END_PORTAL, Material.END_GATEWAY,
-        Material.FIRE, Material.SOUL_FIRE,
-        Material.PETRIFIED_OAK_SLAB
+        Material.END_PORTAL, Material.END_GATEWAY, Material.END_PORTAL_FRAME,
+        Material.FIRE, Material.SOUL_FIRE, Material.PETRIFIED_OAK_SLAB,
+        Material.BUDDING_AMETHYST, Material.REINFORCED_DEEPSLATE,
+        Material.SPAWNER, Material.TRIAL_SPAWNER, Material.VAULT,
+        Material.COMMAND_BLOCK_MINECART
     );
 
     public WorthService(EmeraldSMP plugin) {
@@ -49,18 +51,12 @@ public final class WorthService {
     public boolean isPlayerObtainable(Material m) {
         if (!m.isItem() || NEVER_OBTAINABLE.contains(m)) return false;
         String n = m.name();
-
-        // Spawn eggs are intentionally not part of the public /worth catalogue.
         if (n.endsWith("_SPAWN_EGG")) return false;
-
-        // Creative/admin-only technical items.
-        if (n.contains("COMMAND_BLOCK") || n.contains("STRUCTURE") || n.equals("JIGSAW")
-            || n.equals("BARRIER") || n.equals("LIGHT") || n.equals("DEBUG_STICK")
-            || n.equals("KNOWLEDGE_BOOK") || n.equals("BEDROCK")) return false;
-
-        // Other internal/non-survival entries.
-        if (n.startsWith("INFESTED_") && m != Material.INFESTED_STONE) return false;
-        if (n.equals("END_PORTAL_FRAME")) return false;
+        if (n.startsWith("INFESTED_")) return false;
+        if (n.contains("COMMAND_BLOCK") || n.contains("STRUCTURE")
+            || n.equals("JIGSAW") || n.equals("BARRIER") || n.equals("LIGHT")
+            || n.equals("DEBUG_STICK") || n.equals("KNOWLEDGE_BOOK")
+            || n.equals("BEDROCK")) return false;
         return true;
     }
 
@@ -74,11 +70,10 @@ public final class WorthService {
 
     private double calculateDefault(Material m) {
         String n = m.name();
-
-        // Explicit rarity bands. These are deliberately conservative; named meta anchors override them.
         double value = 25.0;
-        if (n.contains("WOOD") || n.contains("LOG") || n.contains("PLANKS") || n.contains("LEAVES")
-            || n.contains("SAPLING") || n.contains("CARPET") || n.contains("WOOL")) value = 40;
+        if (n.contains("WOOD") || n.contains("LOG") || n.contains("PLANKS")
+            || n.contains("LEAVES") || n.contains("SAPLING") || n.contains("CARPET")
+            || n.contains("WOOL")) value = 40;
         if (n.contains("COPPER")) value = 75;
         if (n.contains("IRON")) value = 100;
         if (n.contains("GOLD")) value = 150;
@@ -90,15 +85,11 @@ public final class WorthService {
         if (n.contains("SHULKER")) value = 200;
         if (n.contains("ELYTRA")) value = 50000;
         if (n.contains("DRAGON")) value = 500000;
-
-        // Hard-to-farm/rare drops.
-        if (Set.of("WITHER_SKELETON_SKULL","NETHER_STAR","TOTEM_OF_UNDYING","HEART_OF_THE_SEA",
-                   "NAUTILUS_SHELL","TRIDENT","ENCHANTED_GOLDEN_APPLE").contains(n)) value = Math.max(value, 15000);
-
-        // Crafted storage gets a higher value because of its resource/utility cost.
+        if (Set.of("WITHER_SKELETON_SKULL","NETHER_STAR","TOTEM_OF_UNDYING",
+                   "HEART_OF_THE_SEA","NAUTILUS_SHELL","TRIDENT",
+                   "ENCHANTED_GOLDEN_APPLE","ECHO_SHARD").contains(n)) value = Math.max(value, 15000);
         if (n.equals("BARREL")) value = 75;
         if (n.equals("ENDER_CHEST")) value = 1000;
-
         return value;
     }
 
