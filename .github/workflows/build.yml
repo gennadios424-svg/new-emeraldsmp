@@ -17,8 +17,15 @@ jobs:
           cache: maven
       - name: Build
         run: mvn -B clean package
+      - name: Verify JAR
+        run: |
+          test -f target/*.jar
+          jar tf target/*.jar | grep -q 'plugin.yml'
+          jar tf target/*.jar | grep -q 'net/emeraldsmp/EmeraldSMP.class'
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
           name: EmeraldSMP
-          path: target/EmeraldSMP-*.jar
+          path: target/*.jar
+          if-no-files-found: error
+          retention-days: 7
